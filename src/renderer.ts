@@ -34,8 +34,10 @@ export class Renderer {
      * import tags to prevent further loading of resources.
      */
     function stripPage() {
-      // Strip only script tags that contain JavaScript (either no type attribute or one that contains "javascript")
-      const elements = document.querySelectorAll('script:not([type]), script[type*="javascript"], link[rel=import]');
+      // Strip only script tags that contain JavaScript (either no type
+      // attribute or one that contains "javascript")
+      const elements = document.querySelectorAll(
+          'script:not([type]), script[type*="javascript"], link[rel=import]');
       for (const e of Array.from(elements)) {
         e.remove();
       }
@@ -67,7 +69,8 @@ export class Renderer {
 
     // Page may reload when setting isMobile
     // https://github.com/GoogleChrome/puppeteer/blob/v1.10.0/docs/api.md#pagesetviewportviewport
-    await page.setViewport({width: this.config.width, height: this.config.height, isMobile});
+    await page.setViewport(
+        {width: this.config.width, height: this.config.height, isMobile});
 
     if (isMobile) {
       page.setUserAgent(MOBILE_USERAGENT);
@@ -91,7 +94,8 @@ export class Renderer {
     try {
       // Navigate to page. Wait until there are no oustanding network requests.
       response = await page.goto(
-          requestUrl, {timeout: this.config.timeout, waitUntil: 'networkidle0'});
+          requestUrl,
+          {timeout: this.config.timeout, waitUntil: 'networkidle2'});
     } catch (e) {
       console.error(e);
     }
